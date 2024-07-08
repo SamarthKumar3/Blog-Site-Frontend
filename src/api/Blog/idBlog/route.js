@@ -1,7 +1,6 @@
 export async function GET(id) {
     try{
-        const res = await fetch(`http://localhost:5000/api/blog/${id}`, {
-        })
+        const res = await fetch(`http://localhost:5000/api/blog/${id}`)
         const data = await res.json();
         if (res.status === 200) {
             return data;

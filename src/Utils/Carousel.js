@@ -1,8 +1,10 @@
 "use client"
-import { GET } from '@/app/api/allBlogs/route';
+import { GET } from '@/api/Blog/allBlogs/route';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const images = [
     'https://images.ctfassets.net/hrltx12pl8hq/5ZjPpfAhn1rZWeopnHiXb/3e1b9a709297905672a0d24eac94a873/thumb_nov22_03.jpg',
@@ -49,17 +51,17 @@ const Carousel = () => {
 
     return (
         <div className="relative flex h-full items-center w-full justify-center">
-            <button onClick={prevSlide} className='border p-5'> prev </button>
+            <button onClick={prevSlide} className='p-5'> <ArrowBackIosIcon className='text-white'/> </button>
             <div className='absolute'>
-                <div class="relative flex justify-center h-[500px] w-[250px] border-[4px]  border-black rounded-2xl"
+                <div className="relative flex justify-center h-[500px] w-[250px] border-[4px]  border-black rounded-2xl"
                     style={{ boxShadow: 'rgb(111 111 111) 1px 2px 2px 2px;' }}>
                     {/* <span class="border border-black bg-black w-16 h-4 mt-2 rounded-full"></span> */}
 
-                    <span class="absolute -right-1.5 top-20  border-[2px]  border-black h-10 rounded-md " style={{ boxShadow: 'rgb(111 111 111) 2px 0px 2px 1px;' }}></span>
+                    <span className="absolute -right-1.5 top-20  border-[2px]  border-black h-10 rounded-md " style={{ boxShadow: 'rgb(111 111 111) 2px 0px 2px 1px;' }}></span>
                     <h1 className='text-6xl text-white'>useful</h1>
-                    <span class="absolute -left-1.5 top-16 border-[2px]  border-black h-6 rounded-md" style={{ boxShadow: 'rgb(111 111 111) -2px 0px 2px 1px;' }}></span>
-                    <span class="absolute -left-1.5 top-32 border-[2px]  border-black h-12 rounded-md" style={{ boxShadow: 'rgb(111 111 111) -2px 0px 2px 1px;' }}></span>
-                    <span class="absolute -left-1.5 top-48 border-[2px]  border-black h-12 rounded-md" style={{ boxShadow: 'rgb(111 111 111) -2px 0px 2px 1px;' }}></span>
+                    <span className="absolute -left-1.5 top-16 border-[2px]  border-black h-6 rounded-md" style={{ boxShadow: 'rgb(111 111 111) -2px 0px 2px 1px;' }}></span>
+                    <span className="absolute -left-1.5 top-32 border-[2px]  border-black h-12 rounded-md" style={{ boxShadow: 'rgb(111 111 111) -2px 0px 2px 1px;' }}></span>
+                    <span className="absolute -left-1.5 top-48 border-[2px]  border-black h-12 rounded-md" style={{ boxShadow: 'rgb(111 111 111) -2px 0px 2px 1px;' }}></span>
                 </div>
             </div>
             <div className="w-full flex justify-center items-center">
@@ -78,7 +80,7 @@ const Carousel = () => {
                     }
                 </div>
             </div>
-            <button onClick={nextSlide} className='border p-5'>next</button>
+            <button onClick={nextSlide} className='p-5'> <ArrowForwardIosIcon className='text-white'/></button>
         </div>
     )
 }

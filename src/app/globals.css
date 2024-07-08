@@ -14,8 +14,52 @@ body {
     align-items: center !important;
 }
 
-
 .group{
     height: 20rem;
     width: 10rem;
+}     
+
+.inputTransition{
+    transition: all 0.2s ease-in-out;
+}
+
+/* #D1D5D8 */
+
+
+
+.forward{
+    transform: translate(-0.5rem,-1.25rem);
+    font-size: xx-small;
+}
+
+#auth-input1:focus + .inputTransition {
+    transform: translate(-0.5rem,-1.25rem);
+    transition: all 0.2s ease-in-out;
+    font-size: xx-small;
+}
+
+#auth-input2:focus + .inputTransition{
+    transform: translate(-0.5rem,-1.25rem);
+    transition: all 0.2s ease-in-out;
+    font-size: xx-small;
+}
+
+#auth-input3:focus + .inputTransition{
+    transform: translate(-0.5rem,-1.25rem);
+    transition: all 0.2s ease-in-out;
+    font-size: xx-small;
+}
+#auth-input4:focus + .inputTransition{
+    transform: translate(-0.5rem,-1.25rem);
+    transition: all 0.2s ease-in-out;
+    font-size: xx-small;
+}
+#auth-input5:focus + .inputTransition{
+    transform: translate(-0.5rem,-1.25rem);
+    transition: all 0.2s ease-in-out;
+    font-size: xx-small;
+}
+
+.cursor-not-allowed{
+    cursor: not-allowed;
 }

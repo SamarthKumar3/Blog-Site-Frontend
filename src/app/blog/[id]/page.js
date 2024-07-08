@@ -1,9 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 
-import { GET } from '@/app/api/idBlog/route';
-import { DELETE } from '@/app/api/deleteBlog/route';
+import { GET } from '@/api/Blog/idBlog/route';
+import { DELETE } from '@/api/Blog/deleteBlog/route';
 import { notFound, redirect } from 'next/navigation'
+import { useRouter } from 'next/router';
 
 const IdBlog = ({ params }) => {
   const [getblogId, setGetBlog] = useState();
@@ -32,6 +33,8 @@ const IdBlog = ({ params }) => {
     e.preventDefault();
     const res = await DELETE(blogId);
     alert(res.message);
+    const router = useRouter();
+    router.push('/');
     if (res.message) {
       redirect('/')
     }
