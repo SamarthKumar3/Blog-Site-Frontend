@@ -5,15 +5,15 @@ import { POST3 } from '@/api/Blog/writeBlog/route';
 import { redirect } from 'next/navigation';
 import Button from '@/Utils/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
-import ImageUpload from '@/Utils/ImageUpload';
+// import ImageUpload from '@/Utils/ImageUpload';
 
 const NewBlog = () => {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
     author: '',
-    image: ''
   })
+  const [file, setFile] = useState(null);
 
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -64,9 +64,9 @@ const NewBlog = () => {
     }
   }
 
-  const handleRemoveCategory = ( index) => {
+  const handleRemoveCategory = (index) => {
     setCategories(prevCategories => {
-      const updatedCategories = prevCategories.filter((_,idx) => idx !== index);
+      const updatedCategories = prevCategories.filter((_, idx) => idx !== index);
       return updatedCategories;
     });
   }
@@ -79,43 +79,39 @@ const NewBlog = () => {
     }
   }
 
-  const handleRemoveTag = ( index) => {
+  const handleRemoveTag = (index) => {
     setTags(prevCategories => {
-      const updatedCategories = prevCategories.filter((_,idx) => idx !== index);
+      const updatedCategories = prevCategories.filter((_, idx) => idx !== index);
       return updatedCategories;
     });
   }
 
-  const inputHandler = (id, pickedFile, fileIsValid) => {
-    console.log(id, pickedFile, fileIsValid);
-    if(!fileIsValid){
-      return;
-    }
-    setFormData((prevData) => ({
-      ...prevData,
-      image: pickedFile
-    }))
-
-  }
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await POST3({
-      title: formData.title,
-      content: formData.content,
-      author: formData.author,
-      tags,
-      categories,
-      image: formData.image
-    });
+    const sendData = new FormData();
+    sendData.append('title', formData.title);
+    sendData.append('content', formData.content);
+    sendData.append('creator', formData.author);
+    sendData.append('tags', tags);
+    sendData.append('categories', categories);
+    sendData.append('image', file);
+
+    const res = await POST3(sendData);
 
     if (res.title || res.creator || res.content || res.tags || res.categories) {
       alert("Created!");
       redirect('/');
     }
+    else {
+      alert("Error");
+    }
   }
-  
+
   return (
     <div className='flex flex-col items-center'>
       <div className='flex flex-col justify-center gap-y-12 py-10 '>
@@ -185,10 +181,11 @@ const NewBlog = () => {
               </div>
               <br />
 
+              {/* <ImageUpload onInput={inputHandler} /> */}
               <div>
                 {/* add image */}
-                <ImageUpload onInput={inputHandler} />
-                <input type='file' className='px-3 py-2 border border-black rounded-md' />
+                <input type='file' accept=".jpg,.png,.jpeg" className='px-3 py-2 border border-black rounded-md' onChange={handleFileChange}
+                />
               </div>
 
               <br />

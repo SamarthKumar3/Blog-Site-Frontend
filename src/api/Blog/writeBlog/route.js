@@ -1,22 +1,15 @@
-export async function POST3(props) {
+export async function POST3(sendData) {
     try {
         const res = await fetch('http://localhost:5000/api/blog/create/new', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                title: props.title,
-                content: props.content,
-                creator: props.author,
-                tags: props.tags,
-                categories: props.categories,
-            })
+            body: sendData
         });
         const data = await res.json();
+        console.log(data);
         if (res.status === 201) {
             return data;
-        } else {
+        } 
+        else {
             throw new Error(data);
         }
     }
