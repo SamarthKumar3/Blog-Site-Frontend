@@ -20,7 +20,7 @@ const Page = async () => {
                 <h1 className='text-center text-3xl'>{blog.title}</h1>
                 <p className='text-justify line-clamp-3 overflow-hidden' >{blog.content}</p>
               </div>
-              <footer className='text-sm' >By {blog.creator}</footer>
+              {/* <footer className='text-sm' >By {blog.creator}</footer> */}
             </Link>
           ))}
         </div>
