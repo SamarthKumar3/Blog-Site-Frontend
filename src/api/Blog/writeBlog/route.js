@@ -10,11 +10,11 @@ export async function POST3(sendData) {
             return data;
         } 
         else {
-            throw new Error(data);
+            throw new Error(data.error || 'Unknown error occurred');
         }
     }
     catch (err) {
-        alert(err);
+        console.log({ err: err.message || err.toString() });
         return;
     }
 }

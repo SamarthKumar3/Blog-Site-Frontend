@@ -59,7 +59,8 @@ const NewBlog = () => {
   const handleCategory = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      setCategories((prevCategories) => [...prevCategories, e.target.value]);
+      const newCategories = e.target.value.split(',').map(item => item.trim());
+      setCategories((prevCategories) => [...prevCategories, newCategories]);
       setCategoriesInput('');
     }
   }
@@ -74,7 +75,8 @@ const NewBlog = () => {
   const handleTag = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      setTags((prevCategories) => [...prevCategories, e.target.value]);
+      const newCategories = e.target.value.split(',').map(item => item.trim());
+      setTags((prevCategories) => [...prevCategories, newCategories]);
       setTagsInput('');
     }
   }
@@ -97,8 +99,8 @@ const NewBlog = () => {
     sendData.append('title', formData.title);
     sendData.append('content', formData.content);
     sendData.append('creator', formData.author);
-    sendData.append('tags', tags);
-    sendData.append('categories', categories);
+    sendData.append('tags', JSON.stringify(tags.flat()));
+    sendData.append('categories', JSON.stringify(categories.flat()));
     sendData.append('image', file);
 
     const res = await POST3(sendData);
@@ -111,6 +113,7 @@ const NewBlog = () => {
       alert("Error");
     }
   }
+
 
   return (
     <div className='flex flex-col items-center'>
@@ -156,7 +159,7 @@ const NewBlog = () => {
                   value={tagsInput}
                   onKeyDown={(e) => { handleTag(e) }}
                 />
-                <div className='flex flex-wrap gap-x-4 mt-2'>
+                <div className='flex flex-wrap gap-x-4 mt-2 gap-y-2'>
                   {tags?.map((tag, index) => (
                     <span key={index} index={index} className='px-4 py-2 border border-black text-white bg-darkGray rounded-3xl flex justify-between gap-x-2 items-center'>{tag} <CancelIcon onClick={() => handleRemoveTag(index)} /></span>
                   ))}
@@ -173,7 +176,7 @@ const NewBlog = () => {
                   value={categoriesInput}
                   onChange={(e) => setCategoriesInput(e.target.value)}
                 />
-                <div className='flex flex-wrap gap-x-4 mt-2'>
+                <div className='flex flex-wrap gap-x-4 mt-2 gap-y-2'>
                   {categories?.map((category, index) => (
                     <span key={index} index={index} className='px-4 py-2 border border-black text-white bg-darkGray rounded-3xl flex justify-between gap-x-2 items-center'>{category} <CancelIcon onClick={() => handleRemoveCategory(index)} /></span>
                   ))}

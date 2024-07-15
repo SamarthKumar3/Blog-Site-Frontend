@@ -85,9 +85,8 @@ const IdBlog = ({ params }) => {
                     <span key={index} className='border border-red-300 px-3 py-1 rounded-md'>{category}</span>
                   ))}
                 </div>
-                <div className=' px-32 flex flex-col gap-y-12 '>
+                <div className=' px-32 flex flex-col gap-y-8 mb-6'>
                   <h1 className='text-left text-7xl'>{`${capitalize(getblogId.title)}`}</h1>
-
                   <div className='flex flex-row gap-x-2 relative'>
                     <div className='absolute bottom-0 right-0 flex flex-col items-center'>
                       <button onClick={() => handleLikes(getblogId._id, getblogId.creator)}>
@@ -98,13 +97,13 @@ const IdBlog = ({ params }) => {
                     <h3 className='text-md'>{`${formatDate(getblogId.createdAt)}`}</h3>
                   </div>
                 </div>
-                <div className='flex flex-col gap-y-4 w-full'>
+                <div className='flex flex-col gap-y-12 w-full'>
                   <div>
                     <img src={getblogId.image} alt={getblogId.title} className='w-full h-full object-cover' />
                   </div>
-                  <p className='text-justify text-lg'>{getblogId.content}</p>
+                  <p className='text-lg leading-9'>{getblogId.content}</p>
                 </div>
-                <div className='flex flex-row gap-x-2 justify-start'>
+                <div className='flex flex-row gap-x-2 justify-start pt-4'>
                   {getblogId.tags.map((tag, index) => (
                     <span key={index} className='bg-gray-800 text-white px-4 py-2 rounded-3xl'>{tag}</span>
                   ))}
