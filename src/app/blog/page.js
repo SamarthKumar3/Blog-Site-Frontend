@@ -5,8 +5,8 @@ import { GET } from '@/api/Blog/allBlogs/route';
 import Link from 'next/link';
 import Header from '@/Components/header';
 
-import { capitalize, highlightText } from '@/Utils/Misc';
 import SearchIcon from '@mui/icons-material/Search';
+import Search from '@/Utils/Search';
 
 
 const Page = () => {
@@ -14,9 +14,10 @@ const Page = () => {
   const [blogs, setBlogs] = useState();
   const [search, setSearch] = useState('');
 
-  const [isOpen, setIsOpen] = useState(false);
+  
   const ref = useRef();
   const searchRef = useRef();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target) && !searchRef.current.contains(event.target)) {
@@ -47,28 +48,7 @@ const Page = () => {
           <h1 className='text-7xl mx-auto'>Blogs</h1>
           <div className='relative flex items-center gap-x-4'>
             <SearchIcon className='absolute left-4' />
-            <input
-              className='pl-10 py-3 border rounded-3xl'
-              type='text'
-              placeholder='Search for a blog'
-              onChange={(e) => setSearch(e.target.value)}
-              value={search}
-              ref={searchRef}
-              onClick={() => setIsOpen(true)}
-            />
-            {search && (
-              isOpen && (
-                <div ref={ref} className='absolute top-14 w-72 h-72 bg-white shadow-lg rounded-xl overflow-y-auto'>
-                  {blogs?.filter((blog) => blog.title.includes(capitalize(search))).map((blog) => (
-                    <div key={blog.id} className='p-4 border-b z-10'>
-                      <Link href={`/blog/${blog.id}`}>
-                        <p>{highlightText(blog.title, search)}</p>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              )
-            )}
+            <Search search={search} setSearch={setSearch} isOpen={isOpen} setIsOpen={setIsOpen} ref={ref} searchRef={searchRef} blogs={blogs} />
           </div>
         </div>
 
