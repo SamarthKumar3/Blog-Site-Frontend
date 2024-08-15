@@ -1,23 +1,29 @@
-export async function POST2(props) {
-    const url = `http://localhost:5000/api/user/signin`;
+export async function POST2(user) {
     try {
-        const response = await fetch(url, {
+        const response = await fetch('http://localhost:5000/api/user/signin', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: props.email,
-                password: props.password
-            })
+                email: user.email,
+                password: user.password
+            }),
         });
         const data = await response.json();
+
         if (response.status === 201) {
-            return {success:true, data: data};
+            return data;
         } else {
-            throw data.error.err;
+            if (data.error) {
+                const errorMessage = data.error && data.error.message ? data.error.message : 'An unspecified error occurred';
+                throw new Error(errorMessage);
+            } else {
+                throw new Error('An error occurred');
+            }
         }
     } catch (error) {
-        return { success: false, error };;
+        // console.log(error);
+        return { success: false, error: error.message};
     }
 }
