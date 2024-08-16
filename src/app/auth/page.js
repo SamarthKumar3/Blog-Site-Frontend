@@ -5,6 +5,7 @@ import { POST2 } from '@/api/User/signIn/route';
 // import { redirect } from 'next/dist/server/api-utils';
 // import Modal from '@/Utils/Modal';
 import Header from '@/Components/header';
+import Input from '@/Utils/Input';
 
 const Auth = () => {
 
@@ -102,53 +103,23 @@ const Auth = () => {
                             {/* i1 */}
                             {isSignup && <>
                                 <div className='relative flex flex-col'>
-                                    <input
-                                        className="px-4 py-2 border-b relative border-black focus:outline-none bg-transparent text-black text-md" id='auth-input1'
-                                        type="text"
-                                        value={formData.name}
-                                        onChange={handleInputChange}
-                                        name='name'
-                                    />
-                                    <label className={`absolute px-4 py-2 text-md -z-10 inputTransition ${formData.name ? 'forward' : ''} `} htmlFor='#auth-input1' style={{ margin: '0 ' }}>Username</label>
+                                    <Input type="text" value={formData.name} handleInputChange={handleInputChange} id='auth-input1' inputName='name' label='Name' />
                                 </div>
                                 <div className='relative flex flex-col'>
-                                    <input
-                                        className="px-4 py-2 border-b relative border-black focus:outline-none bg-transparent text-black text-md" id='auth-input1'
-                                        type="text"
-                                        value={formData.bio}
-                                        onChange={handleInputChange}
-                                        name='bio'
-                                    />
-                                    <label className={`absolute px-4 py-2 text-md -z-10 inputTransition ${formData.bio ? 'forward' : ''} `} htmlFor='#auth-input1' style={{ margin: '0 ' }}>Bio</label>
+                                    <Input type="text" value={formData.bio} handleInputChange={handleInputChange} id='auth-input4' inputName='bio' label='Bio' />
                                 </div>
 
                             </>}
 
                             {/* i2 */}
                             <div className='relative flex flex-col'>
-                                <input
-                                    className="px-4 py-2 border-b relative border-black focus:outline-none bg-transparent text-black text-md"
-                                    type="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    id='auth-input2'
-                                    name='email'
-                                />
-                                <label className={`absolute px-4 py-2 text-md -z-10 inputTransition  ${formData.email ? 'forward' : ''} `} htmlFor='#auth-input2' style={{ margin: '0 ' }}>Email</label>
+                                <Input type="text" value={formData.email} handleInputChange={handleInputChange} id='auth-input2' inputName='email' label='Email' />
                             </div>
 
 
                             {/* i3 */}
                             <div className='relative flex flex-col'>
-                                <input
-                                    className="px-4 py-2 border-b relative border-black focus:outline-none bg-transparent text-black text-md"
-                                    type="password"
-                                    value={formData.password}
-                                    onChange={handleInputChange}
-                                    id='auth-input3'
-                                    name='password'
-                                />
-                                <label className={`absolute px-4 py-2 text-md -z-10 inputTransition  ${formData.password ? 'forward' : ''}`} htmlFor='#auth-input3' style={{ margin: '0 ' }}>Password</label>
+                                <Input type="password" value={formData.password} handleInputChange={handleInputChange} id='auth-input3' inputName='password' label='Password' />
                             </div>
 
                             <button
@@ -166,6 +137,7 @@ const Auth = () => {
                         <p className=" mx-2 text-bold text-white">OR</p>
                         <div className="w-1/2 h-px bg-white"></div>
                     </div>
+                    
                     <div className="flex items-center justify-center w-full">
                         <button
                             className="w-full px-4 py-2 bg-black text-gray-200 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 transition-all duration-300"
