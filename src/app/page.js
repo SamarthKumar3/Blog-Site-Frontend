@@ -2,7 +2,7 @@ import Hero from "@/Components/hero";
 import Carousel from "@/Utils/Carousel";
 import Trending from "@/Components/trending";
 import Footer from "@/Components/footer";
-import Header from "@/Components/header"; 
+import Header from "@/Components/header";
 
 
 export const metadata = {
@@ -35,7 +35,7 @@ export default function Home() {
 
 //frontend:
 // 1. Improve landing page, Posts, write page
-// 2. Add Modals for user interaction 
+// 2. Add Modals for user interaction
 // 3. Add more features like search, categories, tags, comments, likes  \/
 // 4. Add user profile page : profile picture, bio, posts, "talks about" section
 

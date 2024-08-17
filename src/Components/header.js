@@ -7,7 +7,7 @@ function Header() {
     <div className='flex justify-around items-center p-4 sticky top-0 w-full z-10'>
       <div className='flex justify-center items-center gap-x-12'>
         <div><h1>BloggED</h1></div>
-        
+
       </div>
       <div className='flex justify-center items-center gap-x-12'>
         <div>

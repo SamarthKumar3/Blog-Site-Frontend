@@ -14,7 +14,7 @@ const Page = () => {
   const [blogs, setBlogs] = useState();
   const [search, setSearch] = useState('');
 
-  
+
   const ref = useRef();
   const searchRef = useRef();
   const [isOpen, setIsOpen] = useState(false);

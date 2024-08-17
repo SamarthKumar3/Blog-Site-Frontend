@@ -51,7 +51,7 @@ const Carousel = () => {
 
     return (
         <div className="relative flex h-full items-center w-full justify-center">
-            <button onClick={prevSlide} className='p-5'> <ArrowBackIosIcon className='text-white'/> </button>
+            <button onClick={prevSlide} className='p-5'> <ArrowBackIosIcon className='text-white' /> </button>
             <div className='absolute'>
                 <div className="relative flex justify-center h-[500px] w-[250px] border-[4px]  border-black rounded-2xl"
                     style={{ boxShadow: 'rgb(111 111 111) 1px 2px 2px 2px;' }}>
@@ -80,7 +80,7 @@ const Carousel = () => {
                     }
                 </div>
             </div>
-            <button onClick={nextSlide} className='p-5'> <ArrowForwardIosIcon className='text-white'/></button>
+            <button onClick={nextSlide} className='p-5'> <ArrowForwardIosIcon className='text-white' /></button>
         </div>
     )
 }

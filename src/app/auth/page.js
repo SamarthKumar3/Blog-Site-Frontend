@@ -137,7 +137,7 @@ const Auth = () => {
                         <p className=" mx-2 text-bold text-white">OR</p>
                         <div className="w-1/2 h-px bg-white"></div>
                     </div>
-                    
+
                     <div className="flex items-center justify-center w-full">
                         <button
                             className="w-full px-4 py-2 bg-black text-gray-200 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 transition-all duration-300"

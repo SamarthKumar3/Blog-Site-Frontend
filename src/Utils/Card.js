@@ -12,7 +12,7 @@ const Card = ({ article }) => {
             <img src={article.cover} className='w-full h-auto mb-2' />
             <p className='text-justify line-clamp-3 overflow-hidden'>{article.description}</p>
             <div className='mt-4 flex items-start'>
-                <p className='flex'>Read Article &nbsp; <ArrowCircleRightIcon/></p>
+                <p className='flex'>Read Article &nbsp; <ArrowCircleRightIcon /></p>
             </div>
         </div>
     )

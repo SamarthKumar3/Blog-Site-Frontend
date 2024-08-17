@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const Search = (props) => {
     const [isOpen, setIsOpen] = useState(false);
-    
+
     return (
         <div>
             <input
