@@ -4,12 +4,11 @@ import Button from '@/Utils/Button';
 function Header() {
 
   return (
-    <div className='flex justify-around items-center p-4 sticky top-0 w-full z-10'>
+    <div className='flex justify-around items-center p-4 sticky top-0 w-full z-10 font-[600]'>
       <div className='flex justify-center items-center gap-x-12'>
         <div><h1>BloggED</h1></div>
-
       </div>
-      <div className='flex justify-center items-center gap-x-12'>
+      <div className='flex justify-center items-center gap-x-12 '>
         <div>
           <Link href='/'>Home</Link>
         </div>

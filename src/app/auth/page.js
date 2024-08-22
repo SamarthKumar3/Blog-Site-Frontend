@@ -50,24 +50,25 @@ const Auth = () => {
         if (isSignup) {
             if (!formData.name || !formData.email || !formData.password) {
                 alert('Please fill all the fields');
+                return;  
             }
-
+            
             const sendData = new FormData();
             sendData.append('name', formData.name);
             sendData.append('email', formData.email);
             sendData.append('password', formData.password);
-
+            
             try {
                 const res = await POST(sendData);
                 if (res.success) {
-                    return alert('User created successfully');
+                    alert('User created successfully');
                 } else {
-                    return alert(`Failed to create user: ${res.error}`);
+                    alert(`Failed to create user: ${res.error}`);
                 }
             } catch (err) {
-                alert('Failed to create user');
-                return;
+                alert('Failed to create user due to an unexpected error');
             }
+            
         } else {
             if (!formData.email || !formData.password) {
                 return alert('Please fill all the fields');

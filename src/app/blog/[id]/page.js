@@ -13,6 +13,8 @@ import { useRouter } from 'next/router';
 import { capitalize, formatDate } from '@/utils/Misc';
 import Navbar from '@/Components/header';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { cardo } from '@/fonts/fonts';
+import Image from 'next/image';
 
 const IdBlog = ({ params }) => {
   const [getblogId, setGetBlog] = useState();
@@ -103,15 +105,17 @@ const IdBlog = ({ params }) => {
       <div className='flex flex-col p-10 px-16 gap-y-12'>
         {!getblogId ?
           (<h1>Loading</h1>) :
-          <div key={getblogId._id} className='flex flex-col justify-center gap-y-5'>
+          <div className='flex flex-col justify-center gap-y-5'>
+
             {/* tags */}
             <div className='flex flex-row gap-x-4 mb-4 justify-center'>
               {getblogId.categories.map((category, index) => (
                 <span key={index} className='border border-red-300 px-3 py-1 rounded-md'>{category}</span>
               ))}
             </div>
+
             <div className=' px-32 flex flex-col gap-y-8 mb-6'>
-              <h1 className='text-left text-7xl'>{`${capitalize(getblogId.title)}`}</h1>
+              <h1 className={`text-left text-7xl font-[600]`}>{`${capitalize(getblogId.title)}`}</h1>
               <div className='flex flex-row gap-x-2 relative'>
                 <div className='absolute bottom-0 right-0 flex flex-col items-center'>
                   <button onClick={() => handleLikes(getblogId._id, getblogId.creator)}>
@@ -119,20 +123,23 @@ const IdBlog = ({ params }) => {
                   </button>
                   <p>{getblogId?.likes}</p>
                 </div>
-                <h3 className='text-md'>{`${formatDate(getblogId.createdAt)}`}</h3>
+                <h3 className='text-md italic'>{`${formatDate(getblogId.createdAt)}`}</h3>
               </div>
             </div>
+
             <div className='flex flex-col gap-y-12 w-full'>
               <div>
-                <img src={getblogId.image} alt={getblogId.title} className='w-full h-full object-cover' />
+                <Image src={`${getblogId.image}`} alt={getblogId.title} height={500} width={500} className='w-full h-full object-cover' />
               </div>
-              <p className='text-lg leading-9'>{getblogId.content}</p>
+              <p className={`text-lg leading-9 ${cardo.className} leading-loose`}>{getblogId.content}</p>
             </div>
+
             <div className='flex flex-row gap-x-2 justify-start pt-4'>
               {getblogId.tags.map((tag, index) => (
                 <span key={index} className='bg-gray-800 text-white px-4 py-2 rounded-3xl'>{tag}</span>
               ))}
             </div>
+
             <div>
               <footer className='text-sm italic' >By {getblogId.creator}</footer>
             </div>
