@@ -1,14 +1,16 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { POST } from '@/api/User/createUser/route';
 import { POST2 } from '@/api/User/signIn/route';
-// import { redirect } from 'next/dist/server/api-utils';
 // import Modal from '@/Utils/Modal';
 import Header from '@/Components/header';
 import Input from '@/Utils/Input';
+import { AuthContext } from '@/context/auth-context';
+import { useRouter } from 'next/navigation'
 
 const Auth = () => {
-
+    const auth = useContext(AuthContext);
+    const router = useRouter()
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -62,6 +64,8 @@ const Auth = () => {
                 const res = await POST(sendData);
                 if (res.success) {
                     alert('User created successfully');
+                    auth.login(res.data.token, res.data.userId);
+                    router.push('/');
                 } else {
                     alert(`Failed to create user: ${res.error}`);
                 }
@@ -83,6 +87,8 @@ const Auth = () => {
                 const res = await POST2(user);
                 if (res.success) {
                     alert("Signed in successfully");
+                    auth.login(res.data.token, res.data.userId);
+                    router.push('/');
                 } else {
                     alert('Failed to sign in: ' + res.error);
                 }

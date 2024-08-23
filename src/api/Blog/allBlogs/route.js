@@ -5,7 +5,7 @@ export async function GET() {
         })
         const data = await res.json();
     
-        return data;
+        return data.blogs;
     }
     catch(err){
         console.log("Error", err);

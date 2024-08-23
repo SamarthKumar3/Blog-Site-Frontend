@@ -1,17 +1,22 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { POST3 } from '@/api/Blog/writeBlog/route';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import Button from '@/Utils/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 // import ImageUpload from '@/Utils/ImageUpload';
+import { AuthContext } from '@/context/auth-context';
 
 const NewBlog = () => {
+
+  const router = useRouter();
+  const auth = useContext(AuthContext);
+  console.log(auth.token);
+  
   const [formData, setFormData] = useState({
     title: '',
     content: '',
-    author: '',
   })
   const [file, setFile] = useState(null);
 
@@ -20,7 +25,6 @@ const NewBlog = () => {
 
   const [isField1Incomplete, setField1Incomplete] = useState();
   const [isField2Incomplete, setField2Incomplete] = useState();
-  const [isField3Incomplete, setField3Incomplete] = useState();
 
 
   const [tagsInput, setTagsInput] = useState('');
@@ -41,9 +45,7 @@ const NewBlog = () => {
     else if (e.target.name === 'content' && e.target.value === '') {
       setField2Incomplete(true);
     }
-    else if (e.target.name === 'author' && e.target.value === '') {
-      setField3Incomplete(true);
-    }
+
   }
 
   const handleComeback = (e) => {
@@ -51,8 +53,6 @@ const NewBlog = () => {
       setField1Incomplete(false);
     } else if (e.target.name === 'content') {
       setField2Incomplete(false);
-    } else if (e.target.name === 'author') {
-      setField3Incomplete(false);
     }
   }
 
@@ -98,16 +98,15 @@ const NewBlog = () => {
     const sendData = new FormData();
     sendData.append('title', formData.title);
     sendData.append('content', formData.content);
-    sendData.append('creator', formData.author);
     sendData.append('tags', JSON.stringify(tags.flat()));
     sendData.append('categories', JSON.stringify(categories.flat()));
     sendData.append('image', file);
 
-    const res = await POST3(sendData);
+    const res = await POST3(sendData, auth.token);
 
-    if (res.title || res.creator || res.content || res.tags || res.categories) {
+    if (res.blog) {
       alert("Created!");
-      redirect('/');
+      router.push('/blog');
     }
     else {
       alert("Error");
@@ -146,7 +145,6 @@ const NewBlog = () => {
               >
               </textarea>
               {isField2Incomplete ? <p className='text-red-500'>Please enter some value</p> : ''}
-
 
               <br />
               <div>
@@ -192,18 +190,6 @@ const NewBlog = () => {
               </div>
 
               <br />
-
-              <input
-                type='text'
-                name='author'
-                onChange={handleInputChange}
-                value={formData.author}
-                className='px-3 py-2 border border-black rounded-md w-1/4'
-                placeholder='Your name'
-                onBlur={handleIncompleteValue}
-                onFocus={handleComeback}
-              />
-              {isField3Incomplete ? <p className='text-red-500'>Please enter your name</p> : ''}
             </div>
             <button type="submit" className='px-5 py-2 border border-black rounded-2xl'>Publish</button>
           </form>
@@ -216,4 +202,4 @@ const NewBlog = () => {
   )
 }
 
-export default NewBlog
+export default NewBlog;

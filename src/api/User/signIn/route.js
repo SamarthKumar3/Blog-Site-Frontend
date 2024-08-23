@@ -13,7 +13,7 @@ export async function POST2(user) {
         const data = await response.json();
 
         if (response.status === 201) {
-            return data;
+            return {data, success: true};
         } else {
             if (data.error) {
                 const errorMessage = data.error && data.error.message ? data.error.message : 'An unspecified error occurred';

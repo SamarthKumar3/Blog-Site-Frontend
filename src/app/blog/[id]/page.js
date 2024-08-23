@@ -1,22 +1,27 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 
 import { GET } from '@/api/Blog/idBlog/route';
 import { DELETE } from '@/api/Blog/deleteBlog/route';
 import { postComment } from '@/api/Blog/postComment/route';
 import { updateLikes } from '@/api/Blog/updateLikes/route';
 import { DeleteComment } from '@/api/Blog/deleteComment/route';
+import { AuthContext } from '@/context/auth-context';
 
-import { notFound, redirect } from 'next/navigation'
-import { useRouter } from 'next/router';
+import { notFound, useRouter } from 'next/navigation'
 
-import { capitalize, formatDate } from '@/utils/Misc';
+import { capitalize, formatDate, normalizeImageUpload } from '@/utils/Misc';
 import Navbar from '@/Components/header';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { cardo } from '@/fonts/fonts';
 import Image from 'next/image';
 
 const IdBlog = ({ params }) => {
+  const auth = useContext(AuthContext);
+  const router = useRouter();
+
+  const loggedIn = auth.isLoggedIn;
+
   const [getblogId, setGetBlog] = useState();
 
   const [comments, setComments] = useState([]);
@@ -44,6 +49,11 @@ const IdBlog = ({ params }) => {
   }, [blogId]);
 
   const handleLikes = async (blogId, userId) => {
+    if (!loggedIn) {
+      alert('Please login to like a post');
+      router.push('/auth');
+      return;
+    }
     const res = await updateLikes({ blogId, userId });
     if (res) {
       setLikes(res.likes);
@@ -56,6 +66,11 @@ const IdBlog = ({ params }) => {
   };
 
   const handlePostComment = async (e) => {
+    if (!loggedIn) {
+      alert('Please login to comment');
+      router.push('/auth');
+      return;
+    }
     e.preventDefault();
     const { authorName: commentAuthor, comment: commentContent } = newComment;
     const res = await postComment({ blogId, commentAuthor, commentContent });
@@ -129,7 +144,7 @@ const IdBlog = ({ params }) => {
 
             <div className='flex flex-col gap-y-12 w-full'>
               <div>
-                <Image src={`${getblogId.image}`} alt={getblogId.title} height={500} width={500} className='w-full h-full object-cover' />
+                <Image src={`http://localhost:5000${normalizeImageUpload(getblogId.image)}`} alt={getblogId.title} height={500} width={500} className='w-full h-full object-cover' />
               </div>
               <p className={`text-lg leading-9 ${cardo.className} leading-loose`}>{getblogId.content}</p>
             </div>

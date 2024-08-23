@@ -24,3 +24,7 @@ export const highlightText = (text, highlight) => {
         </>
     );
 };
+
+export const normalizeImageUpload = (link)=>{
+    return '/' + link.replace(/\\/g, '/');
+}
