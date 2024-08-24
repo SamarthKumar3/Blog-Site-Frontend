@@ -4,7 +4,6 @@ export async function GET() {
             next: { revalidate: 10 },
         })
         const data = await res.json();
-    
         return data.blogs;
     }
     catch(err){

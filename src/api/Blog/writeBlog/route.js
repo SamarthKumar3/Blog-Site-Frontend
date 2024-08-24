@@ -1,22 +1,21 @@
 export async function POST3(sendData, token) {
     try {
+        const trimmedToken = token.trim();
         const res = await fetch('http://localhost:5000/api/blog/create/new', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${trimmedToken}`,
             },
-            body: sendData
+            body: sendData 
         });
+
         const data = await res.json();
-        console.log(data);
         if (res.status === 201) {
             return data;
+        } else {
+            throw new Error(data.message || 'Unknown error occurred');
         }
-        else {
-            throw new Error(data.error || 'Unknown error occurred');
-        }
-    }
-    catch (err) {
+    } catch (err) {
         console.log({ err: err.message || err.toString() });
         return;
     }

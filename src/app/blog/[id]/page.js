@@ -44,7 +44,6 @@ const IdBlog = ({ params }) => {
         notFound();
       }
     };
-
     getBlog();
   }, [blogId]);
 
@@ -54,7 +53,7 @@ const IdBlog = ({ params }) => {
       router.push('/auth');
       return;
     }
-    const res = await updateLikes({ blogId, userId });
+    const res = await updateLikes({ blogId, userId, token: auth.token });
     if (res) {
       setLikes(res.likes);
     }
@@ -118,8 +117,7 @@ const IdBlog = ({ params }) => {
     <>
       <Navbar />
       <div className='flex flex-col p-10 px-16 gap-y-12'>
-        {!getblogId ?
-          (<h1>Loading</h1>) :
+        {getblogId ?
           <div className='flex flex-col justify-center gap-y-5'>
 
             {/* tags */}
@@ -138,7 +136,10 @@ const IdBlog = ({ params }) => {
                   </button>
                   <p>{getblogId?.likes}</p>
                 </div>
-                <h3 className='text-md italic'>{`${formatDate(getblogId.createdAt)}`}</h3>
+                <div className='flex flex-col gap-y-1'>
+                  <h3 className='text-md italic'>{`Written on ${formatDate(getblogId.createdAt)}`}</h3>
+                  <h3 className='text-md italic'>{`Updated on ${formatDate(getblogId.updatedAt)}`}</h3>
+                </div>
               </div>
             </div>
 
@@ -156,7 +157,7 @@ const IdBlog = ({ params }) => {
             </div>
 
             <div>
-              <footer className='text-sm italic' >By {getblogId.creator}</footer>
+              <footer className='text-sm italic' >By {getblogId.creatorName}</footer>
             </div>
             {/* <button className='border border-red-300 px-3 py-2 rounded-md' onClick={handleDelete}>Delete</button> */}
 
@@ -193,6 +194,8 @@ const IdBlog = ({ params }) => {
               </form>
             </div>
           </div>
+          :
+          <h1>Loading...</h1>
         }
 
       </div>

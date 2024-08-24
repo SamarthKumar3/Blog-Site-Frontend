@@ -64,7 +64,7 @@ const Auth = () => {
                 const res = await POST(sendData);
                 if (res.success) {
                     alert('User created successfully');
-                    auth.login(res.data.token, res.data.userId);
+                    auth.login(res.data.userId, res.data.token);
                     router.push('/');
                 } else {
                     alert(`Failed to create user: ${res.error}`);
@@ -87,7 +87,7 @@ const Auth = () => {
                 const res = await POST2(user);
                 if (res.success) {
                     alert("Signed in successfully");
-                    auth.login(res.data.token, res.data.userId);
+                    auth.login(res.data.userId,res.data.token );
                     router.push('/');
                 } else {
                     alert('Failed to sign in: ' + res.error);

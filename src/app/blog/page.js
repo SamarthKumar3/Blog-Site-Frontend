@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { GET } from '@/api/Blog/allBlogs/route';
+import { getAllUsers } from '@/api/User/allUsers/route';
 import Link from 'next/link';
 import Header from '@/Components/header';
 
@@ -12,6 +13,7 @@ import { cardo } from '@/fonts/fonts';
 
 const Page = () => {
   const [blogs, setBlogs] = useState();
+  const [users, setUsers] = useState();
   const [search, setSearch] = useState('');
 
   useEffect(() => {
@@ -36,12 +38,12 @@ const Page = () => {
 
         <div className='flex flex-row gap-x-12'>
           {blogs?.map((blog, index) => (
-            <Link href={`/blog/${blog._id}`} key={blog._id}>
+            <Link href={`/blog/${blog.id}`} key={blog.id}>
               <div className='flex border flex-col border-black p-5 gap-y-5 w-[200px] h-[200px] justify-between ' >
                 <h1 className='text-center text-3xl'>{blog.title}</h1>
                 <p className={`text-justify line-clamp-3 overflow-hidden ${cardo.className}`} >{blog.content}</p>
               </div>
-              {/* <footer className='text-sm' >By {blog.creator}</footer> */}
+              <footer className='text-sm' >By {blog.creatorName}</footer>
             </Link>
           ))}
         </div>
