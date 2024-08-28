@@ -3,7 +3,7 @@ import { capitalize, highlightText } from '@/Utils/Misc';
 import Link from 'next/link';
 import useClickOutside from '@/hooks/useClickOutside';
 
-const Search = ({ search, setSearch, blogs }) => {
+const Search = ({ search, setSearch, blogs, className }) => {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
     const inputRef = useRef(null);
@@ -23,9 +23,9 @@ const Search = ({ search, setSearch, blogs }) => {
     };
 
     return (
-        <div ref={containerRef} className='relative'>
+        <div ref={containerRef} className={`relative ${className}`}>
             <input
-                className='pl-10 py-3 border rounded-3xl'
+                className='pl-2 py-3 border-b focus:outline-none text-black '
                 type='text'
                 placeholder='Search for a blog'
                 onChange={handleInputChange}

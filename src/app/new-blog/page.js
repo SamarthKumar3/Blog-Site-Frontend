@@ -11,7 +11,6 @@ import { AuthContext } from '@/context/auth-context';
 const NewBlog = () => {
   const router = useRouter();
   const auth = useContext(AuthContext);
-  console.log(auth.token);
   
   const [formData, setFormData] = useState({
     title: '',

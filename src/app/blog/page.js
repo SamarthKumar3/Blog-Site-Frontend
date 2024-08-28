@@ -1,19 +1,16 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 
-import { GET } from '@/api/Blog/allBlogs/route';
-import { getAllUsers } from '@/api/User/allUsers/route';
-import Link from 'next/link';
 import Header from '@/Components/header';
-
-import SearchIcon from '@mui/icons-material/Search';
+import { GET } from '@/api/Blog/allBlogs/route';
+import { normalizeImageUpload } from '@/Utils/Misc';
+import Link from 'next/link';
 import Search from '@/Utils/Search';
 
-import { cardo } from '@/fonts/fonts';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Page = () => {
   const [blogs, setBlogs] = useState();
-  const [users, setUsers] = useState();
   const [search, setSearch] = useState('');
 
   useEffect(() => {
@@ -27,21 +24,21 @@ const Page = () => {
   return (
     <>
       <Header />
-      <div className='flex flex-col p-10 gap-y-12'>
+      <div className='flex flex-col p-10 gap-y-12' >
         <div className='flex items-center'>
           <h1 className='text-7xl mx-auto'>Blogs</h1>
-          <div className='relative flex items-center gap-x-4'>
-            <SearchIcon className='absolute left-4 z-10' />
-            <Search search={search} setSearch={setSearch} blogs={blogs} />
+          <div className='relative flex items-center gap-x-4 '>
+            <SearchIcon className='icon' />
+            <Search search={search} setSearch={setSearch} blogs={blogs} className={``} />
           </div>
         </div>
 
-        <div className='flex flex-row gap-x-12'>
+        <div className='w-full flex-row gap-x-4 gap-y-5 flex'>
           {blogs?.map((blog, index) => (
-            <Link href={`/blog/${blog.id}`} key={blog.id}>
-              <div className='flex border flex-col border-black p-5 gap-y-5 w-[200px] h-[200px] justify-between ' >
-                <h1 className='text-center text-3xl'>{blog.title}</h1>
-                <p className={`text-justify line-clamp-3 overflow-hidden ${cardo.className}`} >{blog.content}</p>
+            <Link href={`/blog/${blog.id}`} key={blog.id} className=''>
+              <div className='flex border flex-col border-black p-5 justify-between  gap-y-2' >
+                <img src={`http://localhost:5000${normalizeImageUpload(blog.image)}`} alt={blog.title} className='w-full h-full' />
+                <h1 className='text-xl font-[600] text-left'>{blog.title}</h1>
               </div>
               <footer className='text-sm' >By {blog.creatorName}</footer>
             </Link>

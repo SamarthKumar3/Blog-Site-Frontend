@@ -137,9 +137,12 @@ const IdBlog = ({ params }) => {
                   <p>{getblogId?.likes}</p>
                 </div>
                 <div className='flex flex-col gap-y-1'>
-                  <h3 className='text-md italic'>{`Written on ${formatDate(getblogId.createdAt)}`}</h3>
-                  <h3 className='text-md italic'>{`Updated on ${formatDate(getblogId.updatedAt)}`}</h3>
+                  <h3 className='text-md italic'>{`Published  ${formatDate(getblogId.createdAt)}`}</h3>
+                  <h3 className='text-md italic'>{`Updated ${formatDate(getblogId.updatedAt)}`}</h3>
                 </div>
+              </div>
+              <div>
+                <footer className='text-sm font-[600]' >{getblogId.creatorName.toUpperCase()}</footer>
               </div>
             </div>
 
@@ -156,9 +159,7 @@ const IdBlog = ({ params }) => {
               ))}
             </div>
 
-            <div>
-              <footer className='text-sm italic' >By {getblogId.creatorName}</footer>
-            </div>
+
             {/* <button className='border border-red-300 px-3 py-2 rounded-md' onClick={handleDelete}>Delete</button> */}
 
             {/* comments */}
