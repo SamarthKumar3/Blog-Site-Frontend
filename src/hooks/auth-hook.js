@@ -3,9 +3,9 @@ import { useState, useCallback, useEffect } from "react";
 let logoutTimer;
 
 export const useAuth = () => {
-    const [token, setToken] = useState(false);
-    const [tokenExpirationDate, setTokenExpirationDate] = useState();
-    const [userId, setUserId] = useState(false);
+    const [token, setToken] = useState(null);
+    const [tokenExpirationDate, setTokenExpirationDate] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     const login = useCallback((uid, token, expirationDate) => {
         setToken(token);
@@ -41,8 +41,6 @@ export const useAuth = () => {
             clearTimeout(logoutTimer);
         }
     }, [token, logout, tokenExpirationDate])
-
-
 
     useEffect(() => {
         const storedData = JSON.parse(localStorage.getItem('userData'));

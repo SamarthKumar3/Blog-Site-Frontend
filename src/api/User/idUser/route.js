@@ -3,7 +3,7 @@ export async function GET(id) {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        if (res.status === 200) {
+        if (response.status === 200) {
             return data;
         } else {
             throw new Error(data);
