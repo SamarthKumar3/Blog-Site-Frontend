@@ -18,7 +18,7 @@ export default function Home() {
       <div className="h-full">
         <Hero />
       </div>
-      <div style={{ backgroundColor: '#000700' }} className='p-[10rem]  flex justify-center flex-col items-center h-screen'>
+      <div style={{ backgroundColor: '#000700' }} className='p-[5rem]  flex justify-center flex-col items-center h-[120vh]'>
         <h1 className='text-6xl text-white'>Read what's</h1>
         <Carousel />
       </div>
