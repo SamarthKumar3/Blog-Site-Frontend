@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --bg: #000000;
+    --clr-1: #00c2ff;
+    --clr-2: #33ff8c;
+    --clr-3: #ffc640;
+    --clr-4: #e54cff;
+    --blur: 1rem;
+    --circle-size: 60vw;
+    --fs: clamp(3rem, 8vw, 7rem);
+    --ls: clamp(-1.75px, -0.25vw, -3.5px);
+}
+
 html,
 body {
     height: 100%;
@@ -64,8 +76,238 @@ body {
     cursor: not-allowed;
 }
 
-.icon{
+.icon {
     position: absolute;
     left: -25px;
     z-index: 10;
+}
+
+.emerge-up {
+    animation: emerge 0.5s ease-in-out;
+}
+
+@keyframes emerge {
+    0% {
+        transform: translateY(50px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.hover-wrapper {
+    display: inline-block;
+    overflow: hidden;
+
+}
+
+.fill {
+    
+    transition: all 0.5s ease-in-out;
+}
+
+.aurora {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 2;
+    mix-blend-mode: darken;
+    pointer-events: none;
+    opacity: 0;
+    transition: width 0.7s ease-in-out, height 0.7s ease-in-out, top 0.1s, left 0.1s;
+}
+
+.aurora__item {
+    overflow: hidden;
+    position: absolute;
+    width: 40vw;
+    height: 40vw;
+    background-color: var(--clr-1);
+    border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+    filter: blur(var(--blur));
+    mix-blend-mode: overlay;
+}
+
+.hover-wrapper .aurora.active {
+    opacity: 1;
+    width: 500px;
+    height: 500px;
+    transition: all 2s ease-in-out
+}
+
+.hover-wrapper .aurora {
+    transition: all 2s ease-in-out;
+}
+
+.hover-wrapper:hover .aurora {
+    width: 300px;
+    height: 300px;
+    top: auto;
+    left: auto;
+}
+
+.hover-wrapper .aurora:not(.active) {
+    width: 0;
+    height: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.aurora__item:nth-of-type(1) {
+    top: 10%;
+    left: 10%;
+    animation: aurora-border 6s ease-in-out infinite, aurora-1 12s ease-in-out infinite alternate;
+}
+
+.aurora__item:nth-of-type(2) {
+    background-color: var(--clr-3);
+    top: 10%;
+    right: 10%;
+    animation: aurora-border 6s ease-in-out infinite, aurora-2 12s ease-in-out infinite alternate;
+}
+
+.aurora__item:nth-of-type(3) {
+    background-color: var(--clr-2);
+    bottom: 10%;
+    left: 10%;
+    animation: aurora-border 6s ease-in-out infinite, aurora-3 8s ease-in-out infinite alternate;
+}
+
+.aurora__item:nth-of-type(4) {
+    background-color: var(--clr-4);
+    bottom: 10%;
+    right: 10%;
+    animation: aurora-border 6s ease-in-out infinite, aurora-4 24s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-1 {
+    0% {
+        top: 0;
+        right: 0;
+    }
+
+    50% {
+        top: 100%;
+        right: 75%;
+    }
+
+    75% {
+        top: 100%;
+        right: 25%;
+    }
+
+    100% {
+        top: 0;
+        right: 0;
+    }
+}
+
+@keyframes aurora-2 {
+    0% {
+        top: -50%;
+        left: 0%;
+    }
+
+    60% {
+        top: 100%;
+        left: 75%;
+    }
+
+    85% {
+        top: 100%;
+        left: 25%;
+    }
+
+    100% {
+        top: -50%;
+        left: 0%;
+    }
+}
+
+@keyframes aurora-3 {
+    0% {
+        bottom: 0;
+        left: 0;
+    }
+
+    40% {
+        bottom: 100%;
+        left: 75%;
+    }
+
+    65% {
+        bottom: 40%;
+        left: 50%;
+    }
+
+    100% {
+        bottom: 0;
+        left: 0;
+    }
+}
+
+@keyframes aurora-4 {
+    0% {
+        bottom: -50%;
+        right: 0;
+    }
+
+    50% {
+        bottom: 0%;
+        right: 40%;
+    }
+
+    90% {
+        bottom: 50%;
+        right: 25%;
+    }
+
+    100% {
+        bottom: -50%;
+        right: 0;
+    }
+}
+
+@keyframes aurora-border {
+    0% {
+        border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+    }
+
+    25% {
+        border-radius: 47% 29% 39% 49% / 61% 19% 66% 26%;
+    }
+
+    50% {
+        border-radius: 57% 23% 47% 72% / 63% 17% 66% 33%;
+    }
+
+    75% {
+        border-radius: 28% 49% 29% 100% / 93% 20% 64% 25%;
+    }
+
+    100% {
+        border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+    }
+}
+
+.modal-enter {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.modal-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 200ms, transform 200ms;
+}
+
+.modal-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.modal-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 200ms, transform 200ms;
 }

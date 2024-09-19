@@ -36,6 +36,8 @@ const images = [
 const Carousel = () => {
     const [currIndex, setCurrIndex] = useState(0);
     const [showText, setShowText] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ top: 0, left: 0 });
+    const [isHovered, setIsHovered] = useState(false);
 
     const [highlightKeywords, setHighlightKeywords] = useState(false);
     const carouselRef = useRef(null);
@@ -68,6 +70,22 @@ const Carousel = () => {
         };
     }, []);
 
+    const handleMouseMove = (e) => {
+        const wrapperRect = e.currentTarget.getBoundingClientRect();
+        setMousePosition({
+            top: e.clientY - wrapperRect.top,
+            left: e.clientX - wrapperRect.left
+        });
+    };
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
+
     const nextSlide = () => {
         setCurrIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
     };
@@ -78,38 +96,47 @@ const Carousel = () => {
 
     const getHighlightedTitle = (title, keywords) => {
         let highlightedTitle = title;
-
+    
         keywords.forEach((keyword) => {
             const regex = new RegExp(`(${keyword})`, 'gi');
             highlightedTitle = highlightedTitle.replace(
                 regex,
                 highlightKeywords
-                    ? `<span class='bg-yellow-200 text-black font-semibold'>${keyword}</span>`
+                    ? `<span class="relative bg-yellow-200 transition-all duration-500 ease-in-out ">${keyword}</span>`
                     : `${keyword}`
             );
         });
-
+    
         return highlightedTitle;
     };
-
+    
     return (
         <div className="relative flex  h-full items-center w-full justify-center">
-            {/* text hover effect */}
-            <div className="absolute">
+            <div className="absolute hover-wrapper"
+                onMouseMove={handleMouseMove}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+            >
                 <span
-                    className="text-[20rem] text-white cursor-pointer"
+                    className="text-[25rem] text-white font-[600] cursor-pointer fill"
                     onMouseEnter={() => setHighlightKeywords(true)}
                     onMouseLeave={() => setHighlightKeywords(false)}
                 >
                     useful
+                    <div className={`aurora ${isHovered ? 'active' : ''}`} style={{ top: mousePosition.top, left: mousePosition.left }}>
+                        <div className="aurora__item"></div>
+                        <div className="aurora__item"></div>
+                        <div className="aurora__item"></div>
+                        <div className="aurora__item"></div>
+                    </div>
                 </span>
             </div>
-            <button onClick={prevSlide} className='p-5 absolute left-0'> <ArrowBackIosIcon className='text-white' /> </button>
+            <button onClick={prevSlide} role="button" className='p-5 absolute left-0'> <ArrowBackIosIcon className='text-white' /> </button>
 
-            <div ref={carouselRef} className={`flex justify-center items-center transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <div ref={carouselRef} className={`z-10 flex justify-center items-center transition-opacity duration-1000 ${isVisible ? 'emerge-up opacity-100' : 'opacity-0'}`}>
                 <div className='absolute'>
                     <div className="relative flex justify-center h-[500px] w-[250px] border-[4px] bg-slate-100 border-black rounded-[2.5rem] z-10 shadow-custom-gray" >
-                        <span class="border absolute border-black bg-black w-16 h-4 mt-2 rounded-full"></span>
+                        <span className="border absolute border-black bg-black w-16 h-4 mt-2 rounded-full"></span>
                         <span className="absolute -right-1.5 top-20  border-[2px]  border-black h-10 rounded-md " style={{ boxShadow: 'rgb(111 111 111) 2px 0px 2px 1px;' }}></span>
                         <span className="absolute -left-1.5 top-16 border-[2px]  border-black h-6 rounded-md" style={{ boxShadow: 'rgb(111 111 111) -2px 0px 2px 1px;' }}></span>
                         <span className="absolute -left-1.5 top-32 border-[2px]  border-black h-12 rounded-md" style={{ boxShadow: 'rgb(111 111 111) -2px 0px 2px 1px;' }}></span>
@@ -118,7 +145,7 @@ const Carousel = () => {
                             <div className='flex flex-row carousel justify-center gap-x-12 absolute '>
 
                                 {images.map((img, index) => {
-                                    return <div className={`slides  p-2 flex flex-col gap-y-4 `} style={{ transform: `translateX(${150 - currIndex * 150}px)`, width: `${index !== currIndex ? '100px' : "200px"}`, filter: `blur(${index !== currIndex ? '3px' : ""})`, transition: 'all 0.5s ease-in-out' }}>
+                                    return <div key={index} className={`slides  p-2 flex flex-col gap-y-4 `} style={{ transform: `translateX(${150 - currIndex * 150}px)`, width: `${index !== currIndex ? '100px' : "200px"}`, filter: `blur(${index !== currIndex ? '3px' : ""})`, transition: 'all 0.5s ease-in-out' }}>
                                         <img src={img.src} alt={img.alt} title={img.credit} style={{
                                             height: '200px',
                                             width: 'auto',
@@ -140,7 +167,7 @@ const Carousel = () => {
                     </div>
                 </div>
             </div>
-            <button onClick={nextSlide} className='p-5 absolute right-0'> <ArrowForwardIosIcon className='text-white' /></button>
+            <button onClick={nextSlide} role="button" className='p-5 absolute right-0'> <ArrowForwardIosIcon className='text-white' /></button>
         </div>
     );
 }

@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { POST } from '@/api/User/createUser/route';
 import { POST2 } from '@/api/User/signIn/route';
-// import Modal from '@/Utils/Modal';
+import Modal from '@/Components/Modal';
 import Header from '@/Components/header';
 import Input from '@/Utils/Input';
 import { AuthContext } from '@/context/auth-context';
@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation'
 const Auth = () => {
     const auth = useContext(AuthContext);
     const router = useRouter()
+    const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState({});
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -52,30 +54,55 @@ const Auth = () => {
         if (isSignup) {
             if (!formData.name || !formData.email || !formData.password) {
                 alert('Please fill all the fields');
-                return;  
+                return;
             }
-            
+
             const sendData = new FormData();
             sendData.append('name', formData.name);
             sendData.append('email', formData.email);
             sendData.append('password', formData.password);
-            
+
             try {
                 const res = await POST(sendData);
                 if (res.success) {
-                    alert('User created successfully');
+                    setModalContent({
+                        header: 'Info',
+                        type: 'success',
+                        children: <p>User created successfully</p>,
+                        footer: <button onClick={() => setShowModal(false)}>Close</button>,
+                    });
+                    setShowModal(true);
                     auth.login(res.data.userId, res.data.token);
                     router.push('/');
                 } else {
-                    alert(`Failed to create user: ${res.error}`);
+                    setModalContent({
+                        header: 'Error',
+                        type: 'error',
+                        children: <p>An Error occured: {res.error}</p>,
+                        footer: <button onClick={() => setShowModal(false)}>Close</button>,
+                    });
+                    setShowModal(true);
                 }
             } catch (err) {
-                alert('Failed to create user due to an unexpected error');
+                setModalContent({
+                    header: 'Error',
+                    type: 'error',
+                    children: <p>An unknown error occured</p>,
+                    footer: <button onClick={() => setShowModal(false)}>Close</button>,
+                });
+                setShowModal(true);
             }
-            
+
         } else {
             if (!formData.email || !formData.password) {
-                return alert('Please fill all the fields');
+                setModalContent({
+                    header: 'Error',
+                    type: 'error',
+                    children: <p>Please fill all the fields</p>,
+                    footer: <button onClick={() => setShowModal(false)}>Close</button>,
+                });
+                setShowModal(true);
+                return;
             }
 
             const user = {
@@ -86,14 +113,33 @@ const Auth = () => {
             try {
                 const res = await POST2(user);
                 if (res.success) {
-                    alert("Signed in successfully");
-                    auth.login(res.data.userId,res.data.token );
-                    router.push('/');
+                    setModalContent({
+                        header: 'Info',
+                        type: 'success',
+                        children: <p>User signed in successfully</p>,
+                        footer: <button onClick={() => setShowModal(false)}>Close</button>,
+                    });
+                    setShowModal(true);
+                    auth.login(res.data.userId, res.data.token);
+                    setTimeout(() => { router.push('/')}, 1000);
+                   
                 } else {
-                    alert('Failed to sign in: ' + res.error);
+                    setModalContent({
+                        header: 'Error',
+                        type: 'error',
+                        children: <p>Failed to sign in: {res.error}</p>,
+                        footer: <button onClick={() => setShowModal(false)}>Close</button>,
+                    });
+                    setShowModal(true);
                 }
             } catch (err) {
-                console.log('An error occured: ' + err);
+                setModalContent({
+                    header: 'Error',
+                    type: 'error',
+                    children: <p>An error occured: {err}</p>,
+                    footer: <button onClick={() => setShowModal(false)}>Close</button>,
+                });
+                setShowModal(true);
                 return;
             }
         }
@@ -107,7 +153,6 @@ const Auth = () => {
                     <h1 className="text-3xl text-center">{isSignup ? 'SIGN UP' : 'SIGN IN'}</h1>
                     <form onSubmit={authSubmitHandler}>
                         <div className="flex flex-col space-y-4 sm:flex-col gap-y-1">
-                            {/* i1 */}
                             {isSignup && <>
                                 <div className='relative flex flex-col'>
                                     <Input type="text" value={formData.name} handleInputChange={handleInputChange} id='auth-input1' inputName='name' label='Name' />
@@ -118,13 +163,10 @@ const Auth = () => {
 
                             </>}
 
-                            {/* i2 */}
                             <div className='relative flex flex-col'>
                                 <Input type="text" value={formData.email} handleInputChange={handleInputChange} id='auth-input2' inputName='email' label='Email' />
                             </div>
 
-
-                            {/* i3 */}
                             <div className='relative flex flex-col'>
                                 <Input type="password" value={formData.password} handleInputChange={handleInputChange} id='auth-input3' inputName='password' label='Password' />
                             </div>
@@ -156,6 +198,15 @@ const Auth = () => {
                     </div>
                 </div>
             </div>
+            <Modal
+                show={showModal}
+                onCancel={() => setShowModal(false)} // Close modal on backdrop or cross button click
+                header={modalContent.header}
+                type={modalContent.type}
+                footer={modalContent.footer}
+            >
+                {modalContent.children}
+            </Modal>
         </>
     );
 };
