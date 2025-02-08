@@ -1,6 +1,6 @@
-export async function updateLikes({ blogId, userId,token }) {
+export async function updateLikes({ id, userId,token }) {
     try {
-        const res = await fetch(`http://localhost:5000/api/blog/likes/${blogId}`, {
+        const res = await fetch(`http://localhost:5000/api/blog/likes/${id}`, {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${token}`,

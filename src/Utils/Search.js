@@ -59,14 +59,15 @@
 
 // export default Search;
 
-
+"use client"
 import React, { useState, useEffect, useRef } from 'react';
 import { capitalize, highlightText } from '@/Utils/Misc';
 import Link from 'next/link';
 import useClickOutside from '@/hooks/useClickOutside';
 import SearchIcon from '@mui/icons-material/Search';
 
-const Search = ({ search, setSearch, blogs, className }) => {
+const Search = ({ blogs, className }) => {
+    const [search, setSearch] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
     const inputRef = useRef(null);
@@ -94,7 +95,6 @@ const Search = ({ search, setSearch, blogs, className }) => {
             <div
                 className="relative flex items-center cursor-pointer"
                 onClick={handleIconClick}
-
             >
                 <SearchIcon className="absolute left-0  text-gray-500" />
                 <input
@@ -115,12 +115,12 @@ const Search = ({ search, setSearch, blogs, className }) => {
             {search && isOpen && (
                 <div
                     id='search-results'
-                    className='absolute top-14 w-72 h-72 bg-white shadow-lg rounded-xl overflow-y-auto z-50'
+                    className='absolute flex flex-col top-14 w-72 h-72 bg-white shadow-lg rounded-xl overflow-y-auto z-50'
                 >
                     {blogs
                         ?.filter((blog) => blog.title.toLowerCase().includes(search.toLowerCase()))
                         .map((blog) => (
-                            <div key={blog.id} className='p-4 border-b'>
+                            <div key={blog.id} className='py-1 px-4 border-b line-clamp-2 overflow-hidden'>
                                 <Link href={`/blog/${blog._id}`}>
                                     <p>{highlightText(blog.title, search)}</p>
                                 </Link>

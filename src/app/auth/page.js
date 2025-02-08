@@ -61,6 +61,7 @@ const Auth = () => {
             sendData.append('name', formData.name);
             sendData.append('email', formData.email);
             sendData.append('password', formData.password);
+            sendData.append('bio', formData.bio);
 
             try {
                 const res = await POST(sendData);

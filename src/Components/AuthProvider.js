@@ -1,5 +1,4 @@
 'use client';
-
 import { useAuth } from '@/hooks/auth-hook';
 import { AuthContext } from '@/context/auth-context';
 

@@ -1,46 +1,46 @@
-"use client";
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Header from '@/Components/header';
-import { GET } from '@/api/Blog/allBlogs/route';
 import { normalizeImageUpload, formatDate } from '@/Utils/Misc';
 import Link from 'next/link';
 import Search from '@/Utils/Search';
+import Image from 'next/image';
 
-const Page = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [search, setSearch] = useState('');
+async function getBlogs() {
+  const res = await fetch('http://localhost:5000/api/blog/all-blogs')
+  const data = await res.json();
+  return data.blogs
+}
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      const response = await GET();
-      setBlogs(response);
-    };
-    fetchBlogs();
-  }, [search]);
+export default async function Page() {
+  const data = await getBlogs();
 
   return (
     <>
       <Header />
       <div className='flex flex-col p-10 gap-y-12'>
         <div className='flex items-start justify-between'>
-          <h1 className='text-6xl font-bold mb-8'>Blogs</h1>
+          <div className='mb-8'>
+            <h1 className='text-6xl font-bold mb-6'>Blogs</h1>
+            <h3>Discover what others are talking about</h3>
+          </div>
           <div className='relative flex items-center gap-x-2'>
-            
-            <Search search={search} setSearch={setSearch} blogs={blogs} />
+            <Search blogs={data} />
           </div>
         </div>
 
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12'>
-          {blogs?.map((blog) => (
+          {data?.map((blog) => (
             <div key={blog.id} className='block'>
               <Link href={`/blog/${blog.id}`} className='p-4 transition transform group-hover:scale-105 group-hover:shadow-xl w-80'>
                 <div>
                   <div className='aspect-w-16 aspect-h-9'>
-                    <img
+                    <Image
                       src={`http://localhost:5000${normalizeImageUpload(blog.image)}`}
                       alt={blog.title}
                       className='w-full h-full object-cover  mb-4'
+                      height={500}
+                      width={500} 
                     />
                   </div>
                   <h1 className='text-lg font-semibold mb-2  transition-colors'>
@@ -58,5 +58,3 @@ const Page = () => {
     </>
   );
 };
-
-export default Page;

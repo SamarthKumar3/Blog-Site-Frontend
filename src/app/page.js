@@ -35,7 +35,7 @@ export default function Home() {
 
 //frontend:
 // 1. Improve landing page, Posts, write page
-// 2. Add Modals for user interaction
+// 2. Add Modals for user interaction \/
 // 3. Add more features like search, categories, tags, comments, likes  \/
 // 4. Add user profile page : profile picture, bio, posts, "talks about" section
 
@@ -43,7 +43,7 @@ export default function Home() {
 // backend:
 // 1. Allow file upload \/
 // 2. Allow user to upload pictures (profile picture, post images) \/
-// 3. Add JWT authentication for passwords
-// 4. Optimise queries and secure passwords
-// 5. Connect user and posts
+// 3. Add JWT authentication for passwords \/
+// 4. Optimise queries and secure passwords \/
+// 5. Connect user and posts \/
 // 6. Change schema to include post likes \/, comments \/; user Bio, profile picture \/

@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { createPortal } from 'react-dom';
@@ -12,6 +13,8 @@ const Backdrop = (props) => {
         document.getElementById('backdrop-hook')
     );
 };
+
+ 
 
 const ModalOverlay = (props) => {
     return (
