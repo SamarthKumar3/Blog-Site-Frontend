@@ -1,6 +1,6 @@
 export async function getAllUsers() {
     try {
-        const response = await fetch('http://localhost:5000/api/user',{
+        const response = await fetch(`${process.env.NEXT_PUBLIC_backend_url}/api/user`,{
             next: { revalidate: 10 },
         });
         const data = await response.json();

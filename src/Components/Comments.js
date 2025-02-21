@@ -9,8 +9,8 @@ import { postComment } from '@/api/Blog/postComment/route';
 import { DeleteComment } from '@/api/Blog/deleteComment/route';
 
 
-const Comments = () => {
-    const [comments, setComments] = useState([]);
+const Comments = ({ blogComments, blogId, blogUser }) => {
+    const [comments, setComments] = useState(blogComments);
     const [newComment, setNewComment] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState({
@@ -58,11 +58,10 @@ const Comments = () => {
         }
 
         const user = auth.userId;
-        console.log(user);
 
         const res = await postComment({ blogId, user, comment: newComment, token: auth.token });
-        if (res) {
-            setComments(res.comments);
+        if (res.Success) {
+            setComments((prevComments) => [...prevComments.slice(), res.data.comments]);
             setNewComment('');
             setModalContent({
                 header: 'Success',
@@ -71,19 +70,22 @@ const Comments = () => {
                 footer: <button onClick={() => setShowModal(false)}>Close</button>,
             });
             setShowModal(true);
-        } else {
+        } else if (!res.Success) {
             setModalContent({
                 header: 'Error',
                 type: 'error',
-                children: 'An error occurred while posting your comment.',
+                children: `An error occurred while posting your comment: ${res.data.error}`,
                 footer: <button onClick={() => setShowModal(false)}>Close</button>,
             });
             setShowModal(true);
         }
     };
+    useEffect(() => {
+        console.log("Updated comments:", comments);
+    }, [comments]);
 
     const handleCommentDeletion = async (commentId) => {
-        if (getblogId) {
+        if (blogId) {
             const res = await DeleteComment({ commentId, blogId, token: auth.token });
             if (res) {
                 setComments(comments.filter(comment => comment._id !== commentId));
@@ -111,9 +113,8 @@ const Comments = () => {
                 <h3 className='text-lg'>Comments</h3>
                 <div className='flex flex-col gap-y-4 border rounded-lg p-2'>
                     {comments?.length === 0 ? <p>No comments yet</p> :
-
-                        comments.map((comment, index) => (
-                            <div key={index} className='flex flex-col gap-y-2'>
+                        comments.map((comment) => (
+                            <div key={comment._id} className='flex flex-col gap-y-2'>
                                 <h5 className='text-sm italic'>{comment.name}</h5>
                                 <p className=''>{comment.comment}</p>
                                 {(blogUser === auth.userId) &&

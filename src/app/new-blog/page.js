@@ -5,7 +5,6 @@ import { POST3 } from '@/api/Blog/writeBlog/route';
 import { useRouter } from 'next/navigation'
 import Button from '@/Utils/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
-// import ImageUpload from '@/Utils/ImageUpload';
 import { AuthContext } from '@/context/auth-context';
 
 const NewBlog = () => {

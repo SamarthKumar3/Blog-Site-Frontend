@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
-
+import Image from "next/image";
 import Button from "./Button";
+
 
 const ImageUpload = props => {
     const [file, setFile] = useState();
@@ -57,7 +58,7 @@ const ImageUpload = props => {
             />
             <div className={`justify-center'}`}>
                 <div className="border rounded-full">
-                    {previewUrl && <img src={previewUrl} alt="Preview" />}
+                    {previewUrl && <Image src={previewUrl} alt="Preview" height={200} width={200} />}
                     {!previewUrl && <p>Please provide an image</p>}
                 </div>
                 <Button type="button" onClick={pickImageHandler}>Choose an image</Button>

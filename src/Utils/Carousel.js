@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import Image from 'next/image';
 
 const images = [
     {
@@ -146,9 +147,7 @@ const Carousel = () => {
 
                                 {images.map((img, index) => {
                                     return <div key={index} className={`slides  p-2 flex flex-col gap-y-4 `} style={{ transform: `translateX(${150 - currIndex * 150}px)`, width: `${index !== currIndex ? '100px' : "200px"}`, filter: `blur(${index !== currIndex ? '3px' : ""})`, transition: 'all 0.5s ease-in-out' }}>
-                                        <img src={img.src} alt={img.alt} title={img.credit} style={{
-                                            height: '200px',
-                                            width: 'auto',
+                                        <Image src={img.src} alt={img.alt} title={img.credit} height={200} width= {200} style={{
                                             objectFit: 'cover'
                                         }} />
 

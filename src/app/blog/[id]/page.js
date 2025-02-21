@@ -9,7 +9,7 @@ import Comments from '@/Components/Comments';
 export const revalidate = 60; 
 export const dynamicParams = true;
 export async function generateStaticParams() {
-  const blogs = await fetch('http://localhost:5000/api/blog/all-blogs').then((res) =>
+  const blogs = await fetch(`${process.env.NEXT_PUBLIC_backend_url}/api/blog/all-blogs`).then((res) =>
     res.json()
   )
   return blogs.blogs.map((blog) => ({
@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 
 export default async function IdBlog({ params }) {
   const { id } = await params
-  const blog = await fetch(`http://localhost:5000/api/blog/all-blogs/${id}`).then((res) =>
+  const blog = await fetch(`${process.env.NEXT_PUBLIC_backend_url}/api/blog/all-blogs/${id}`).then((res) =>
     res.json()
   )
 
@@ -53,7 +53,7 @@ export default async function IdBlog({ params }) {
 
           <div className='flex flex-col gap-y-12 w-full'>
             <div>
-              <Image src={`http://localhost:5000${normalizeImageUpload(blog.image)}`} alt={blog.title} height={500} width={500} className='w-full h-full object-cover' />
+              <Image src={`${process.env.NEXT_PUBLIC_backend_url}${normalizeImageUpload(blog.image)}`} alt={blog.title} height={500} width={500} className='w-full h-full object-cover' />
             </div>
             <p className={`text-lg leading-9 ${cardo.className} leading-loose`}>{blog.content}</p>
           </div>
@@ -66,11 +66,9 @@ export default async function IdBlog({ params }) {
 
 
           {/* <button className='border border-red-300 px-3 py-2 rounded-md' onClick={handleDelete}>Delete</button> */}
-          <Comments comments={blog.comments} blogId={blog._id} />
+          <Comments blogComments={blog.comments} blogId={blog._id} blogUser={blog.creator}/>
         </div>
       </div>
-
-
     </>
   );
 };

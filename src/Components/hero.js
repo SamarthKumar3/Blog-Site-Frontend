@@ -1,5 +1,6 @@
 "use client"
 import React from 'react'
+import Image from 'next/image';
 
 function Hero() {
     return (
@@ -7,7 +8,7 @@ function Hero() {
             <div className='flex gap-x-20'>
                 <div className='w-1/2 p-20 '>
                     <div className='relative flex flex-col justify-center items-center'>
-                        <img src='/aaron-burden.jpg' alt='hero' className='w-full p-2 border-2' />
+                        <Image src='/aaron-burden.jpg' alt='hero' className='w-full p-2 border-2' height={500} width={500} />
                         <div className='absolute bottom-8 text-gray-200 italic'>
                             <h3>Literacy is a bridge from misery to hope</h3>
                             <h6>~Kofi Annan</h6>

@@ -1,6 +1,6 @@
 export async function DELETE(id) {
     try {
-        const res = await fetch(`http://localhost:5000/api/user/delete/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_backend_url}/api/user/delete/${id}`, {
             method: 'DELETE',
         });
 

@@ -1,8 +1,7 @@
 export async function postComment({ blogId, user, comment, token }) {
     try {
-        const res = await fetch(`http://localhost:5000/api/blog/comments/${blogId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_backend_url}/api/blog/comments/${blogId}`, {
             method: 'POST',
-
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
@@ -12,21 +11,16 @@ export async function postComment({ blogId, user, comment, token }) {
                 comment: comment
             }),
         });
-        const text = await res.text();
-
-        if (text) {
-            const data = JSON.parse(text);
-            if (res.status === 200) {
-                return data;
-            } else {
-                throw new Error(data.error || data.message || 'Unknown error occurred');
-            }
-        } else {
-            throw new Error('Empty response from server');
+        const data = await res.json();
+        if (data.Success) {
+            return { data: data.updatedBlog, "Success": true };
+        }
+        else {
+            return { data, "Success": false };
         }
     } catch (err) {
         console.log({ err: err.message || err.toString() });
-        return;
+        return err.message || err.toString();
     }
 }
 

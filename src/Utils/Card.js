@@ -14,7 +14,7 @@ const Card = ({ article }) => {
                 </p>
             </div>
             <h1 className='text-3xl line-clamp-1 overflow-hidden'>{`${capitalize(article.title)}`}</h1>
-            <Image src={`http://localhost:5000${normalizeImageUpload(article.image)}`} alt={article.title} height={500} width={500} className='w-full h-auto mb-2' />
+            <Image src={`${process.env.NEXT_PUBLIC_backend_url}${normalizeImageUpload(article.image)}`} alt={article.title} height={500} width={500} className='w-full h-auto mb-2' />
             <p className='text-justify line-clamp-3 overflow-hidden'>{article.content}</p>
             <div className='mt-4 flex items-start'>
                 <div className="group flex items-center cursor-pointer" style={{ height: '1rem', width: 'auto' }}>

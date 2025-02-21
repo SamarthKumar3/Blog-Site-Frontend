@@ -1,7 +1,7 @@
 export async function POST3(sendData, token) {
     try {
         const trimmedToken = token.trim();
-        const res = await fetch('http://localhost:5000/api/blog/create/new', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_backend_url}/api/blog/create/new`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${trimmedToken}`,

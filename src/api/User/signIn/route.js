@@ -1,6 +1,6 @@
 export async function POST2(user) {
     try {
-        const response = await fetch('http://localhost:5000/api/user/signin', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_backend_url}/api/user/signin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,7 +23,6 @@ export async function POST2(user) {
             }
         }
     } catch (error) {
-        // console.log(error);
         return { success: false, error: error.message};
     }
 }

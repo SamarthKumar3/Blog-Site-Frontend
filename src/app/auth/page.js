@@ -31,23 +31,21 @@ const Auth = () => {
         }))
     }
 
-    if (isSignup) {
-        useEffect(() => {
+    useEffect(() => {
+        if (isSignup) {
             if (formData.name && formData.email && formData.password.length > 8) {
                 setButtonDisable(false);
             } else {
                 setButtonDisable(true);
             }
-        }, [formData.name, formData.email, formData.password]);
-    } else {
-        useEffect(() => {
+        } else {
             if (formData.email && formData.password.length > 8) {
                 setButtonDisable(false);
             } else {
                 setButtonDisable(true);
             }
-        }, [formData.email, formData.password]);
-    }
+        }
+    }, [formData, isSignup]);
 
     const authSubmitHandler = async (e) => {
         e.preventDefault();
@@ -79,7 +77,7 @@ const Auth = () => {
                     setModalContent({
                         header: 'Error',
                         type: 'error',
-                        children: <p>An Error occured: {res.error}</p>,
+                        children: <p>An Error occurred: {res.error}</p>,
                         footer: <button onClick={() => setShowModal(false)}>Close</button>,
                     });
                     setShowModal(true);
@@ -88,7 +86,7 @@ const Auth = () => {
                 setModalContent({
                     header: 'Error',
                     type: 'error',
-                    children: <p>An unknown error occured</p>,
+                    children: <p>An unknown error occurred</p>,
                     footer: <button onClick={() => setShowModal(false)}>Close</button>,
                 });
                 setShowModal(true);
@@ -137,7 +135,7 @@ const Auth = () => {
                 setModalContent({
                     header: 'Error',
                     type: 'error',
-                    children: <p>An error occured: {err}</p>,
+                    children: <p>An error occurred: {err}</p>,
                     footer: <button onClick={() => setShowModal(false)}>Close</button>,
                 });
                 setShowModal(true);

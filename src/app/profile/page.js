@@ -126,7 +126,7 @@ const ProfilePage = () => {
                             <h2 className="text-xl font-bold mb-4">Talks About</h2>
                             {/* add categories to user schema */}
                             {user.categories.length === 0 ? "User has not posted anything yet" : topCategories.map((category) =>
-                                <span className="bg-blue-100 py-2 px-4 rounded-full">{category}</span>
+                                <span className="bg-blue-100 py-2 px-4 rounded-full" key={category}>{category}</span>
                             )}
                         </div>
 
@@ -135,7 +135,7 @@ const ProfilePage = () => {
                             <h2 className="text-xl font-bold mb-4">Frequently used tags</h2>
                             <div className="flex space-x-4 flex-wrap">
                                 {user.tags.length === 0 ? "User has not posted anything yet" : topTags.map((tag) =>
-                                    <span className="bg-gray-200 py-2 px-4 rounded-full">{tag}</span>
+                                    <span className="bg-gray-200 py-2 px-4 rounded-full" key={tag}>{tag}</span>
                                 )}
                             </div>
                         </div>
@@ -165,7 +165,7 @@ const ProfilePage = () => {
                         <div className="bg-white p-4 border rounded-lg mb-6 overflow-y-scroll max-h-40">
                             <h3 className="font-bold mb-4">Recent posts:</h3>
                             {user.blogTitles.length === 0 ? "User has not posted anything yet" : user.blogTitles.map((blog) =>
-                                <p className='line-clamp-3 overflow-hidden font-semibold underline hover:text-blue-500 transition-all duration-300'>{blog.title}</p>
+                                <p className='line-clamp-3 overflow-hidden font-semibold underline hover:text-blue-500 transition-all duration-300' key={blog.title}>{blog.title}</p>
                             )}
                         </div>
 

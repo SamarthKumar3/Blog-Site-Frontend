@@ -6,7 +6,11 @@ import Search from '@/Utils/Search';
 import Image from 'next/image';
 
 async function getBlogs() {
-  const res = await fetch('http://localhost:5000/api/blog/all-blogs')
+  const res = await fetch(`${process.env.NEXT_PUBLIC_backend_url}/api/blog/all-blogs`, {
+    next: {
+      revalidate: 3600,
+    }
+  })
   const data = await res.json();
   return data.blogs
 }
@@ -36,11 +40,11 @@ export default async function Page() {
                 <div>
                   <div className='aspect-w-16 aspect-h-9'>
                     <Image
-                      src={`http://localhost:5000${normalizeImageUpload(blog.image)}`}
+                      src={`${process.env.NEXT_PUBLIC_backend_url}${normalizeImageUpload(blog.image)}`}
                       alt={blog.title}
                       className='w-full h-full object-cover  mb-4'
                       height={500}
-                      width={500} 
+                      width={500}
                     />
                   </div>
                   <h1 className='text-lg font-semibold mb-2  transition-colors'>

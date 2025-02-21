@@ -1,7 +1,7 @@
 export async function DeleteComment({commentId, blogId, token}) {
 
     try {
-        const res = await fetch(`http://localhost:5000/api/blog/comment/${commentId}/delete/${blogId}`, {
+        const res = await fetch(`${process.env.backend_url}/api/blog/comment/${commentId}/delete/${blogId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
