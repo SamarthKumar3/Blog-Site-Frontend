@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 const images = [
     {
-        src: './Google-Campus.jpg',
+        src: '/Google-Campus.jpg',
         alt: 'Google Campus',
         credit: 'Photo by Alban on Unsplash',
         creditLink: 'https://unsplash.com/@hypr1and?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
@@ -16,7 +16,7 @@ const images = [
         keywords: ['Google', 'Innovative Campus', 'Technology']
     },
     {
-        src: './Dog-spam.jpg',
+        src: '/Dog-spam.jpg',
         alt: 'Dog',
         credit: 'Photo by Ryan Walton on Unsplash',
         creditLink: 'https://unsplash.com/@rwltn1?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
@@ -25,7 +25,7 @@ const images = [
         keywords: []
     },
     {
-        src: './AI-boom.jpg',
+        src: '/AI-boom.jpg',
         alt: 'AI Boom',
         credit: 'Photo by Possessed Photography on Unsplash',
         creditLink: 'https://unsplash.com/@possessedphotography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
